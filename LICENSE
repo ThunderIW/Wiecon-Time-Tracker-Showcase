@@ -1,0 +1,47 @@
+Copyright (c) 2026 Immanuel Wiessler and Wiecon Consultants Taiwan.
+All rights reserved.
+
+PROPRIETARY AND CONFIDENTIAL
+
+This repository and everything in it, including the source code, prebuilt
+executables, documentation, images and user guide (together, the "Software"),
+is the confidential and proprietary property of Immanuel Wiessler and Wiecon
+Consultants Taiwan (the "Copyright Holders").
+
+The Software is not open source. No licence or other right is granted to any
+person by the publication of the Software, by sharing it, or by giving any
+person access to this repository, except as set out in writing and signed by
+the Copyright Holders.
+
+Without prior written permission from the Copyright Holders, you may not:
+
+  1. copy, download, clone or fork the Software, in whole or in part;
+  2. modify, adapt, translate or create derivative works based on the Software;
+  3. distribute, publish, sublicense, sell, lease, lend or otherwise make the
+     Software available to any third party;
+  4. use the Software, or any executable built from it, in or for any
+     organisation other than Wiecon Consultants Taiwan;
+  5. reverse engineer, decompile or disassemble any executable form of the
+     Software, except to the extent that applicable law expressly permits it
+     despite this restriction.
+
+Access to this repository is given solely so that authorised persons may view
+and work on the Software for Wiecon Consultants Taiwan. Any other use is
+unauthorised and may result in civil and criminal liability.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM, OUT OF
+OR IN CONNECTION WITH THE SOFTWARE OR THE USE OF IT.
+
+PERMISSION TO USE
+
+Anyone who wants to use, copy, modify or distribute the Software, in whole or
+in part, must first contact Immanuel Wiessler and obtain his written
+permission:
+
+  Email:  im.wiessler@gmail.com
+  GitHub: @ThunderIW
+
+Any use of the Software without that written permission is not allowed.
