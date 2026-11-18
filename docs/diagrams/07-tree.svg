@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="652" height="602" viewBox="0 0 652 602" role="img" aria-label="Project layout of the Wiecon Time Tracker repository">
+<title>Project layout</title>
+<style>.mono{font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace;font-size:13px}.sans{font-family:'Trebuchet MS',Verdana,Arial,sans-serif;font-size:13px}.name{fill:#1f2937}.dir{fill:#111827;font-weight:700}.root{fill:#16235c;font-weight:700;font-size:14px}.desc{fill:#6b7280}.wire{stroke:#aeb8c2;stroke-width:1.5;fill:none;stroke-linecap:round}.r-blue{fill:#2f6fd0}.r-navy{fill:#16235c}.r-violet{fill:#7c3aed}.r-slate{fill:#64748b}.r-teal{fill:#1f8a70}.r-amber{fill:#b45309}@media (prefers-color-scheme:dark){.name{fill:#c9d1d9}.dir{fill:#e6edf3}.root{fill:#7c94d8}.desc{fill:#8b949e}.wire{stroke:#4a545e}.r-blue{fill:#6ea8fe}.r-navy{fill:#7c94d8}.r-violet{fill:#b085f5}.r-slate{fill:#8b98a5}.r-teal{fill:#4ecfae}.r-amber{fill:#e0a33e}}</style>
+<text class="mono root" x="18" y="31">Time_tracker_software/</text>
+<path class="wire" d="M30 37 V557"/>
+<rect class="r-blue" x="6" y="38" width="3" height="20" rx="1.5"/>
+<rect class="r-navy" x="6" y="68" width="3" height="66" rx="1.5"/>
+<rect class="r-violet" x="6" y="144" width="3" height="43" rx="1.5"/>
+<rect class="r-teal" x="6" y="197" width="3" height="89" rx="1.5"/>
+<rect class="r-teal" x="6" y="296" width="3" height="20" rx="1.5"/>
+<rect class="r-teal" x="6" y="326" width="3" height="66" rx="1.5"/>
+<rect class="r-amber" x="6" y="402" width="3" height="89" rx="1.5"/>
+<rect class="r-amber" x="6" y="501" width="3" height="66" rx="1.5"/>
+<path class="wire" d="M68 87 V124"/>
+<path class="wire" d="M68 163 V177"/>
+<path class="wire" d="M68 216 V276"/>
+<path class="wire" d="M68 345 V382"/>
+<path class="wire" d="M68 421 V481"/>
+<path class="wire" d="M30 48 h13"/>
+<text class="mono name" x="47" y="52">main.py</text>
+<text class="sans desc" x="292" y="52">every screen, the import pipeline, the PDF builders</text>
+<path class="wire" d="M30 78 h13"/>
+<text class="mono dir" x="47" y="82">Database/</text>
+<path class="wire" d="M68 101 h13"/>
+<text class="mono name" x="85" y="105">QueryDatabase.py</text>
+<text class="sans desc" x="292" y="105">InteractWithDatabase, shared by UI and assistant</text>
+<path class="wire" d="M68 124 h13"/>
+<text class="mono name" x="85" y="128">create_database.py</text>
+<text class="sans desc" x="292" y="128">three SQLModel tables, engine, database path</text>
+<path class="wire" d="M30 154 h13"/>
+<text class="mono dir" x="47" y="158">Chat_bot/</text>
+<path class="wire" d="M68 177 h13"/>
+<text class="mono name" x="85" y="181">bot_setup.py</text>
+<text class="sans desc" x="292" y="181">supervisor, two specialist agents, their tools, API key</text>
+<path class="wire" d="M30 207 h13"/>
+<text class="mono dir" x="47" y="211">Media/</text>
+<path class="wire" d="M68 230 h13"/>
+<text class="mono name" x="85" y="234">Fonts/simhei.ttf</text>
+<text class="sans desc" x="292" y="234">CJK font embedded in every PDF</text>
+<path class="wire" d="M68 253 h13"/>
+<text class="mono dir" x="85" y="257">Logos/</text>
+<text class="sans desc" x="292" y="257">window icon and header logo</text>
+<path class="wire" d="M68 276 h13"/>
+<text class="mono dir" x="85" y="280">Avatar/</text>
+<text class="sans desc" x="292" y="280">assistant and user chat avatars</text>
+<path class="wire" d="M30 306 h13"/>
+<text class="mono dir" x="47" y="310">Data/</text>
+<text class="sans desc" x="292" y="310">sample punch exports, filed by year</text>
+<path class="wire" d="M30 336 h13"/>
+<text class="mono dir" x="47" y="340">docs/</text>
+<path class="wire" d="M68 359 h13"/>
+<text class="mono dir" x="85" y="363">diagrams/</text>
+<text class="sans desc" x="292" y="363">the figures in this README</text>
+<path class="wire" d="M68 382 h13"/>
+<text class="mono dir" x="85" y="386">screenshots/</text>
+<text class="sans desc" x="292" y="386">the app screenshots</text>
+<path class="wire" d="M30 412 h13"/>
+<text class="mono dir" x="47" y="416">release/</text>
+<path class="wire" d="M68 435 h13"/>
+<text class="mono name" x="85" y="439">build_release_notes.py</text>
+<text class="sans desc" x="292" y="439">changelog to illustrated PDF</text>
+<path class="wire" d="M68 458 h13"/>
+<text class="mono dir" x="85" y="462">archives/</text>
+<text class="sans desc" x="292" y="462">every earlier build, v0.1.2 to v0.8.1</text>
+<path class="wire" d="M68 481 h13"/>
+<text class="mono dir" x="85" y="485">new/</text>
+<text class="sans desc" x="292" y="485">the current v0.9.0 build</text>
+<path class="wire" d="M30 511 h13"/>
+<text class="mono name" x="47" y="515">pyproject.toml</text>
+<text class="sans desc" x="292" y="515">dependencies and the Python 3.13 floor</text>
+<path class="wire" d="M30 534 h13"/>
+<text class="mono name" x="47" y="538">uv.lock</text>
+<text class="sans desc" x="292" y="538">resolved versions</text>
+<path class="wire" d="M30 557 h13"/>
+<text class="mono name" x="47" y="561">Wiecon Time Tracker.spec</text>
+<text class="sans desc" x="292" y="561">PyInstaller build definition</text>
+</svg>
