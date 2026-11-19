@@ -161,11 +161,9 @@ Each row's date and time are read from the uploaded plain text and parsed with [
 
 A multi-agent system built with [LangChain](https://www.langchain.com/)'s `create_agent` and [Google's Gemini](https://ai.google.dev/gemini-api/docs). It answers natural-language questions about employee attendance using a supervisor and two specialist agents, all running on the same model:
 
-<div align="center">
-<img src="docs/diagrams/09-ai-assistant.drawio.svg" alt="You talk to the supervisor, which delegates to Attendance_agent and hours_agent; both reach attendance.db only through InteractWithDatabase" width="760">
-</div>
+![One question to the assistant: the chat sends it to the supervisor, which asks Gemini which specialist to use and hands it to Attendance_agent; that agent asks Gemini which tool to call, the read-only hours tool reads attendance.db, and the hours come back up, or no record when there is none, before the supervisor streams the answer into the chat](docs/diagrams/ai-question.svg)
 
-<sub>Editable in draw.io: open <code>docs/diagrams/09-ai-assistant.drawio.svg</code> at <a href="https://app.diagrams.net">app.diagrams.net</a>.</sub>
+<sub>One question, in order. Gemini only picks the agent and the tool; the hours come from the database through a read-only tool, and a missing day comes back as "no record", never as a guess. <code>hours_agent</code> answers its questions the same way.</sub>
 
 - **The supervisor** talks to you. It never answers from its own knowledge: it turns your question into self-contained requests, sends them to one or both specialists, and combines what they report.
 - **The specialists** are tool-calling agents. Each one autonomously selects and invokes its database query tools, reads the results, and reports the facts back. Their prompts forbid stating any figure they haven't retrieved through a tool, and require them to report "no data" rather than zero hours.
