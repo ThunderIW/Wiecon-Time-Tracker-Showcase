@@ -1,14 +1,8 @@
 <div align="center">
 
+<img src="docs/readme/hero.svg" width="100%" alt="Wiecon Time Tracker: a Windows desktop app that turns raw punch-clock rows into monthly hours-worked timesheets, ready to file">
 
-<img src="Media/Logos/Wiecon_logo-removebg-preview.png" alt="Wiecon logo" width="160">
-
-# Wiecon Time Tracker
-
-
-**Turning raw punch-clock data into monthly hours-worked figures, ready to file with the government.**
-
-![Version 0.9.0](https://img.shields.io/badge/version-0.9.0-16235c?style=for-the-badge) ![Python 3.13](https://img.shields.io/badge/python-3.13-2f6fd0?style=for-the-badge&logo=python&logoColor=white) ![NiceGUI 3.15](https://img.shields.io/badge/NiceGUI-3.15-1f8a70?style=for-the-badge) ![SQLite](https://img.shields.io/badge/SQLite-SQLModel-b45309?style=for-the-badge&logo=sqlite&logoColor=white)
+<br><br>
 
 <a href="https://www.dropbox.com/scl/fi/k7jliixl9v4mlwhamy5m1/video-rev6.mp4?rlkey=gnzw56te49ozo5q1dmv385i6t&raw=1"><img src="docs/video/promo_thumbnail_play.jpg" alt="Play the Wiecon Time Tracker promo video" width="840"></a>
 
@@ -16,36 +10,34 @@
 
 </div>
 
-> [!CAUTION]
-> ### Proprietary software. Not open source.
->
-> **Copyright © 2026 Immanuel Wiessler and Wiecon Consultants Taiwan. All rights reserved.**
->
-> You may not use, copy, modify or distribute this software without written permission. To ask for permission, email **[im.wiessler@gmail.com](mailto:im.wiessler@gmail.com)**.
->
-> Full terms: [Copyright and license](#09-copyright-and-license) · [LICENSE](LICENSE)
-
 > [!NOTE]
 > **This is a showcase repository.** It holds the README, screenshots, diagrams, the user guide and a sample report so you can see what the program does. The source code and prebuilt builds are private.
 
+## About this project
+
+| | |
+| :--- | :--- |
+| **What it is** | A Windows desktop app that turns a punch clock's raw export into the monthly hours-worked figures Wiecon Consultants Taiwan files with the government |
+| **Who uses it** | The office secretary, every month. The monthly report went from 1 h 20 min to 20 min |
+| **Timeline** | 14 releases in 8 weeks, from 0.1.2 on 6 August 2026 to 0.9.0 on 1 October 2026 |
+| **Scale** | About 3,400 lines of Python in three packages, a three-table SQLite schema, four kinds of PDF report |
+| **Stack** | Python 3.13 · NiceGUI · SQLModel over SQLite · pendulum · fpdf2 · LangChain with Gemini · PyInstaller |
+
+Built by [**@ThunderIW**](https://github.com/ThunderIW).
+
+### Engineering highlights
+
+- **Bare timestamps into working days.** The punch clock records a time and nothing else: no in/out flag. The app groups each employee's punches by day and measures from first to last, so a stray midday punch can't split one day into two. [See it on sample data →](#06-example-workflow-getting-monthly-hourly-report)
+- **One query layer for everything.** The screen and the AI assistant both read through a single class, `InteractWithDatabase`, so they can never quote different numbers. [Architecture →](#04-architecture)
+- **An AI assistant that can't invent figures.** A supervisor agent hands each question to two tool-calling specialists, whose prompts forbid stating any number they haven't fetched through a read-only database tool. [AI assistant →](#ai-assistant)
+- **Integrity enforced by the database.** Foreign keys are switched on for every SQLite connection, so punches for unknown badge numbers are rejected and removing an employee cascades to their punches.
+- **Shipped like a product.** A single Windows executable built with PyInstaller, a release-notes PDF with every version, a step-by-step user guide and a two-minute promo video.
+
 <br>
 
 <div align="center">
 
-<table>
-<tr><td><b>Input</b></td><td>A punch-clock CSV file which is uploaded by hand to the system </td><td>one row per punch, no in/out flag</td></tr>
-<tr><td><b>Output</b></td><td>Monthly timesheet PDFs</td><td>average and total hours per employee</td></tr>
-<tr><td><b>Stack</b></td><td><a href="https://nicegui.io/">NiceGUI</a>, <a href="https://sqlmodel.tiangolo.com/">SQLModel</a>, <a href="https://www.sqlite.org/">SQLite</a>, <a href="https://pendulum.eustace.io/">pendulum</a></td><td><a href="https://www.python.org/">Python</a> 3.13, packaged with <a href="https://pyinstaller.org/">PyInstaller</a></td></tr>
-<tr><td><b>Platform</b></td><td>Windows desktop</td><td>browser during development</td></tr>
-</table>
-
-</div>
-
-<br>
-
-<div align="center">
-
-**[PDF](docs/user-guide/Wiecon%20Time%20Tracker%20-%20User%20Guide.pdf)** &nbsp;·&nbsp; **[HTML file](docs/user-guide/Wiecon%20Time%20Tracker%20-%20User%20Guide.html)**
+**User guide:** **[PDF](docs/user-guide/Wiecon%20Time%20Tracker%20-%20User%20Guide.pdf)** &nbsp;·&nbsp; **[HTML file](docs/user-guide/Wiecon%20Time%20Tracker%20-%20User%20Guide.html)**
 
 <sub>A step-by-step guide for the people using the app: numbered screenshots for every screen, from uploading the punch file to downloading the timesheets.<br>The <b>PDF</b> opens right here. GitHub can't preview the <b>HTML file</b>; to use it offline, click the download button next to <i>Raw</i> and open it in Edge or Chrome.</sub>
 
@@ -58,13 +50,13 @@
 | :---: | --- | --- |
 | 01 | [Why this exists](#01-why-this-exists) | The two-program manual routine this replaces, and the figure it produces |
 | 02 | [Testimonials](#02-testimonials) | What the people using it every month say |
-| 03 | [Features](#03-features) | The five things the program actually gives you |
+| 03 | [Features](#03-features) | The six things the program actually gives you |
 | 04 | [Architecture](#04-architecture) | Front end, back end, the three tables, and what is derived rather than stored |
-| 05 | [Example workflow (Getting monthly hourly report)](#05-example-workflow-getting-monthly-hourly-report) | A complete run on invented data, from uploaded CSV to the filed total |
-| 06 | [What it doesn't do](#06-what-it-doesnt-do) | Scope limits, stated plainly |
-| 07 | [Known issues](#07-known-issues) | Three behaviours worth knowing before relying on it |
-| 08 | [Changelog](#08-changelog) | Every released version, newest first, and what changed in each |
-| 09 | [Copyright and license](#09-copyright-and-license) | Proprietary software: what you may and may not do with this code |
+| 05 | [Design decisions and lessons](#05-design-decisions-and-lessons) | What went wrong in real use, and how the design changed because of it |
+| 06 | [Example workflow (Getting monthly hourly report)](#06-example-workflow-getting-monthly-hourly-report) | A complete run on invented data, from uploaded CSV to the filed total |
+| 07 | [Scope and known issues](#07-scope-and-known-issues) | What it doesn't do, and three behaviours worth knowing |
+| 08 | [Release history](#08-release-history) | 14 releases in eight weeks, newest first |
+| 09 | [Copyright and license](#09-copyright-and-license) | Proprietary software |
 
 <br>
 
@@ -72,7 +64,9 @@
 
 ## 01. Why this exists
 
-![Before](https://img.shields.io/badge/before-separate_extraction_software-64748b?style=flat-square) ![Now](https://img.shields.io/badge/now-one_program-16235c?style=flat-square)
+<div align="center">
+<img src="docs/readme/impact.svg" width="100%" alt="Monthly reporting took 1 hour 20 minutes across two programs; it now takes 20 minutes in one: 75% less time, four times faster">
+</div>
 
 In the current setup, employees check in and check out using a punch system that lets them use either their fingerprint or a code. Before this program, the employee in charge of keeping tabs on this, the secretary, had to perform the following steps every month:
 
@@ -98,7 +92,7 @@ As a result of introducing this system, the task now takes the secretary 20 minu
 ---
 
 ## 03. Features
-The program has as set of features these include the following:
+Six things the program does:
 
 **1.** ![Bulk CSV / Plain-Text Import](https://img.shields.io/badge/Bulk%20CSV%20%2F%20Plain--Text%20Import-b45309?style=flat-square)<br>
 Several punch files can be uploaded at once. Bad rows — entries for people who don't work for the company — are reported back to you and left out, while everything else is stored.
@@ -153,9 +147,7 @@ Run normally it serves in the browser over [uvicorn](https://www.uvicorn.org/); 
 The backend uses SQLite, with SQLModel providing the schema definition and query interface. Tables are declared as SQLModel classes in `Database/create_database.py` and initialized on import, so no migration step is required. Every query the program runs goes through a single dedicated Python class, `InteractWithDatabase` in `Database/QueryDatabase.py`, and both the UI and the AI assistant share it. This eliminates any chance of the two diverging — they are always reading the same numbers from the same database.
 
 
-In addition to the backend using SQLite, each row's date and time are retrieved from the uploaded plaintext and passed through 
-pendulum, for example the daytime are combined and translate from `05/01/26 08:57:00` to `05 January 2026` 
-followed by the time `08:57 AM` and are in the frontend and in the exported PDFs as well
+Each row's date and time are read from the uploaded plain text and parsed with [pendulum](https://pendulum.eustace.io/), so `05/01/26 08:57:00` becomes `05 January 2026` and `08:57 AM`, both on screen and in the exported PDFs.
 
 
 <div align="center">
@@ -193,7 +185,7 @@ Only the supervisor's reply is streamed into the chat. Each message is answered 
 
 
 <div align="center">
-<img src="docs/screenshots/06_ai_assistant.jpg" alt="Ai assistant display" width="760">
+<img src="docs/screenshots/06_ai_assistant.jpg" alt="The AI assistant chat window inside the app" width="760">
 </div>
 
 
@@ -221,7 +213,7 @@ Four modules, and everything funnels through one of them:
 
 The full tree, including what is not code:
 
-<img src="docs/diagrams/07-tree.svg" alt="Module dependency graph" width="760">
+<img src="docs/diagrams/07-tree.svg" alt="The project file tree, including what is not code" width="760">
 
 Where to start reading, depending on what you are looking for:
 
@@ -233,17 +225,30 @@ Where to start reading, depending on what you are looking for:
 | What the assistant can and cannot do | `Chat_bot/bot_setup.py` | `SUPERVISOR_PROMPT` and the `agent` class, then the two specialist agents and their `@tool` functions |
 | How a release is cut | `release/build_release_notes.py` | `VERSION` and `CHANGELOG` at the top |
 
-> [!NOTE]
-> `build/`, `dist/`, `__pycache__/` and `.venv/` also exist in the working tree. They are generated, and none of them belong in version control — see the caution in [Where the data lives](#07-where-the-data-lives).
+---
+
+## 05. Design decisions and lessons
+
+![From real use](https://img.shields.io/badge/from-real_use-16235c?style=flat-square)
+
+Most of the design came from problems found in real use. These are the changes that shaped it most:
+
+| Problem in real use | Decision | Why |
+| --- | --- | --- |
+| Importing a whole year of punch files at once crashed the app (0.7.0). | Limit uploads to three files at a time. | A clear limit is better than a crash halfway through an import. |
+| Building a large timesheet PDF for every employee froze the app (0.1.6). | Build the PDF off the main thread, with a loading indicator. | The window stays responsive while a big report is made. |
+| Hours had to be recalculated by hand after every upload (0.1.3). | Recalculate on every upload; keep the manual recompute only for restores and deletions. | The figures on screen are never stale after an import. |
+| The zero-hours sheet put afternoon punches under Start Time, so a forgotten punch-in looked like a forgotten punch-out (0.6.0). | Write an afternoon punch under End Time and leave Start Time blank. | The secretary has to know which punch to ask the employee about. |
+| The AI assistant failed silently without a key or internet, and the key had to be typed into `.env` by hand (0.5.0). | Set the key from inside the app, and say plainly when a request fails. | The person using it isn't a developer and has to see what went wrong. |
+| Removing an employee or a month of data can't be undone (0.8.0). | One shared confirmation dialog that names exactly what will be removed. | Every destructive action asks the same way, so nothing is deleted by accident. |
 
 ---
 
-## 05. Example workflow (Getting monthly hourly report)
+## 06. Example workflow (Getting monthly hourly report)
 
 ![Invented data](https://img.shields.io/badge/data-invented-1f8a70?style=flat-square) ![Verified](https://img.shields.io/badge/output-measured_from_a_real_run-16235c?style=flat-square)
 
-This section highlights an example workflow on how one can generate the monthly hour report 
-with sample data stored in the database
+A complete run on invented data, from an uploaded punch file to the total the firm files.
 
 <div align="center">
 <img src="docs/diagrams/08-example-workflow.svg" alt="The four steps of the example workflow: add employees, drop the punch file, read the month, export the timesheet" width="880">
@@ -270,8 +275,7 @@ Through <kbd>Employees</kbd> → <kbd>Employee Tools</kbd> → <kbd>Manage</kbd>
 | 20402       | Marco Reyes     | 李承翰             |
 | 20403       | Ingrid Halvorsen |                    |
 
-The Chinese name is an optional parameter due to the fact that the software was built for an international company based in
-Asia, meaning some employees may have only Chinese names.
+The Chinese name is optional. The software was built for an international company in Taiwan, where some employees go by a Chinese name only and others by an English one.
 
 ### Step two: drop the punch file
 
@@ -294,10 +298,7 @@ the columns below are labeled for readability only.
 | 020402 | 06/01/26 | 18:11:00 | 00 |
 | 020404 | 06/01/26 | 09:00:00 | 00 |
 
-In the actual file itself, it's purely just **plaintext** 
-and only records one row per punch, so it does not group
-together punch in and punch out for an individual employee
-for a particular day, which this program solves
+The real file is **plain text** with one row per punch. Nothing in it says which punch is an arrival and which a departure, or groups an employee's punches by day; working that out is the program's job.
 
 
 
@@ -364,7 +365,9 @@ Each page repeats the table above for one person and closes with their average a
 
 ---
 
-## 06. What it doesn't do
+## 07. Scope and known issues
+
+### What it doesn't do
 
 | Not included | Status                                                                                                                             |
 | --- |------------------------------------------------------------------------------------------------------------------------------------|
@@ -375,46 +378,41 @@ Each page repeats the table above for one person and closes with their average a
 
 
 
----
+### Known issues
 
-## 07. Known issues
+**Employees must exist before their punches will import.** A punch whose badge number has no matching employee violates a foreign key and is dropped. The upload notification lists the skipped IDs, which is easy to miss on a large file.
 
-### Employees must exist before their punches will import
+**There is no bulk employee import in the UI.** A function that reads an employee CSV exists in the database layer, but nothing calls it. Employees are added one at a time through the Add tab, so a fresh database means entering everyone by hand before the first import will do anything.
 
-A punch whose badge number has no matching employee violates a foreign key and is dropped. The upload notification lists the skipped IDs, which is easy to miss on a large file.
-
-### There is no bulk employee import in the UI
-
-A function that reads an employee CSV exists in the database layer, but nothing calls it. Employees are added one at a time through the Add tab, so a fresh database means entering everyone by hand before the first import will do anything.
-
-### Re-uploading the same file duplicates rows
-
-There is no unique constraint on a punch, and nothing checks whether one is already stored. Importing the same file twice was measured to take the table from 6 rows to 12. Derived hours are unaffected, since a day is reduced to its first and last punch, but the table grows on every re-import.
+**Re-uploading the same file duplicates rows.** There is no unique constraint on a punch, and nothing checks whether one is already stored. Importing the same file twice was measured to take the table from 6 rows to 12. Derived hours are unaffected, since a day is reduced to its first and last punch, but the table grows on every re-import.
 
 ---
 
-## 08. Changelog
+## 08. Release history
 
 ![Latest 0.9.0](https://img.shields.io/badge/latest-0.9.0-16235c?style=flat-square) ![14 releases](https://img.shields.io/badge/releases-14-2f6fd0?style=flat-square) ![Notes PDF per release](https://img.shields.io/badge/every_release_ships-a_notes_PDF-0f766e?style=flat-square)
 
-Every released version, newest first. The table is the short version; open a release below for the details.
+14 releases between 6 August and 1 October 2026, newest first.
 
-| Version | Released | Headline | Your `attendance.db` |
-| :--- | :--- | :--- | :--- |
-| **0.9.0** | 1 Oct 2026 | Timesheet and Employees menus in the header | ![Keep it](https://img.shields.io/badge/keep_it-15803d?style=flat-square) |
-| **0.8.1** | 26 Aug 2026 | Long multi-month reports and clearer file names | ![Keep it](https://img.shields.io/badge/keep_it-15803d?style=flat-square) |
-| **0.8.0** | 24 Aug 2026 | Removing an employee, with a confirmation for every destructive action | ![Keep it](https://img.shields.io/badge/keep_it-15803d?style=flat-square) |
-| **0.7.0** | 21 Aug 2026 | One employee across as many months as you like | ![Keep it](https://img.shields.io/badge/keep_it-15803d?style=flat-square) |
-| **0.6.0** | 20 Aug 2026 | Both timesheet downloads moved into one dialog | ![Keep it](https://img.shields.io/badge/keep_it-15803d?style=flat-square) |
-| **0.5.0** | 19 Aug 2026 | The assistant's API key, set from inside the app | ![Keep it](https://img.shields.io/badge/keep_it-15803d?style=flat-square) |
-| **0.4.0** | 13 Aug 2026 | The zero-hours sheet for missed punch-outs | — |
-| **0.3.0** | 13 Aug 2026 | Employees can be added without an external SQLite tool | — |
-| **0.2.0** | 11 Aug 2026 | The AI assistant arrives | — |
-| **0.1.6 and earlier** | 6–10 Aug 2026 | Five maintenance releases | — |
+| Version | Released | Headline |
+| :--- | :--- | :--- |
+| **0.9.0** | 1 Oct 2026 | Timesheet and Employees menus in the header |
+| **0.8.1** | 26 Aug 2026 | Long multi-month reports and clearer file names |
+| **0.8.0** | 24 Aug 2026 | Removing an employee, with a confirmation for every destructive action |
+| **0.7.0** | 21 Aug 2026 | One employee across as many months as you like |
+| **0.6.0** | 20 Aug 2026 | Both timesheet downloads moved into one dialog |
+| **0.5.0** | 19 Aug 2026 | The assistant's API key, set from inside the app |
+| **0.4.0** | 13 Aug 2026 | The zero-hours sheet for missed punch-outs |
+| **0.3.0** | 13 Aug 2026 | Employees can be added without an external SQLite tool |
+| **0.2.0** | 11 Aug 2026 | The AI assistant arrives |
+| **0.1.6 and earlier** | 6–10 Aug 2026 | Five maintenance releases |
 
-<sub>**Keep it** means the `attendance.db` beside your old exe works with the new one: replace only the exe. **—** means the release notes do not say.</sub>
+<details>
+<summary><b>Full release notes</b>: open for every version's details</summary>
 
-<details open>
+<br>
+
+<details>
 <summary><b>0.9.0</b> &nbsp;·&nbsp; 1 October 2026 &nbsp;·&nbsp; <i>Timesheet and Employees menus in the header</i></summary>
 
 <br>
@@ -631,30 +629,16 @@ Every released version, newest first. The table is the short version; open a rel
 
 </details>
 
+</details>
+
 <br>
 
 ## 09. Copyright and license
 
-> [!IMPORTANT]
-> **Proprietary and confidential. This is not open-source software.**
+![Proprietary](https://img.shields.io/badge/license-proprietary-64748b?style=flat-square)
 
 Copyright © 2026 Immanuel Wiessler and Wiecon Consultants Taiwan. All rights reserved.
 
-This repository and everything in it, including the source code, prebuilt executables, documentation, images and user guide, is the confidential property of the copyright holders. No licence of any kind is granted by publishing this repository, sharing it, or giving anyone access to it.
+This is proprietary software, not open source. It is shared here so that it can be read and reviewed; it may not be copied, modified, distributed or used elsewhere without written permission. The full terms are in the [LICENSE](LICENSE) file.
 
-Without prior written permission from the copyright holders, you may not:
-
-- copy, download, clone or fork the source code;
-- modify, adapt, translate or create derivative works from any part of it;
-- distribute, publish, sublicense, sell or otherwise make it available to anyone else;
-- use the software or the prebuilt executables in any organisation other than Wiecon Consultants Taiwan;
-- reverse engineer, decompile or disassemble the executables.
-
-Access to this repository is given only so that authorised people can view and work on it for Wiecon Consultants Taiwan. Any other use is unauthorised and may lead to legal action.
-
-> [!IMPORTANT]
-> **Want to use this software?** You must contact Immanuel Wiessler and get his written permission first.
->
-> Email: [im.wiessler@gmail.com](mailto:im.wiessler@gmail.com) · GitHub: [@ThunderIW](https://github.com/ThunderIW)
-
-The full terms are in the [LICENSE](LICENSE) file.
+For permission or questions: [im.wiessler@gmail.com](mailto:im.wiessler@gmail.com) · GitHub [@ThunderIW](https://github.com/ThunderIW)
