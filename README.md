@@ -124,11 +124,9 @@ A NiceGUI front end over a SQLite database accessed through SQLModel ([SQLAlchem
 <img src="docs/diagrams/06-techstack.png" alt="Tech stack: NiceGUI UI, pywebview native window, SQLModel over SQLite, fpdf2 PDF export, pendulum dates, PyInstaller packaging, uv for env and deps, Python 3.13 or newer." width="880">
 </div>
 
-<div align="center">
-<img src="docs/diagrams/02-architecture.svg" alt="Architecture: what you touch, what it does, where it lives" width="880">
-</div>
+![A punch file is uploaded in main.py, parsed by _process_attendance_rows and written through InteractWithDatabase into attendance.db; the table and chart, the PDF builders and the AI assistant (a supervisor and two specialist agents on Gemini, reaching the data only through read-only query tools) all read it back through the same InteractWithDatabase layer](docs/diagrams/architecture.svg)
 
-Slanted boxes are files entering or leaving. The hexagon is the single query layer — nothing reaches the database except through it, which is why the screen and the assistant can never quote different numbers.
+<sub>Everything reaches <code>attendance.db</code> through one query layer, <code>InteractWithDatabase</code>, which is why the screen, the PDFs and the assistant can never quote different numbers. The assistant's agents reach it only through read-only tools.</sub>
 
 ### Front end
 
